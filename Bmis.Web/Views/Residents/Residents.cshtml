@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["title"] = "Residents";
+}
+
+@using Bmis.Web.Extensions
+@model List<Bmis.Web.Controllers.Residents.ResidentViewModel>
+@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box box-solid bg-black">
+            <div class="box-header with-border">
+                <ul class="box-controls pull-right">
+                    <a asp-controller="Residents"
+                       asp-action="Add"
+                       class="btn btn-success">Add new resident</a>
+                </ul>
+            </div>
+            <div class="box-body">						
+                <div class="table-responsive project-table">
+                    <table id="residents" class="table table-hover table-bordered table-striped display nowrap margin-top-10">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>Civil Status</th>
+                            <th>Voter Status</th>
+                            <th>Is PWD?</th>
+                            <th>Contact No.</th>
+                        </tr>
+                        </thead>
+                        
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            var resident = Model[i];
+
+                            <tr>
+                                <td>@(i+1)</td>
+                                <td>
+                                    <a asp-action="Resident"
+                                       asp-controller="Residents"
+                                       asp-route-id="@resident.Id">
+                                        @resident.GetFullName()
+                                    </a>
+                                </td>
+                                <td>@resident.Gender.ToString()</td>
+                                <td>@resident.GetAge()</td>
+                                <td>@resident.CivilStatus.ToString()</td>
+                                <td>@resident.VoterStatus.ToString()</td>
+                                <td>@resident.IsPwd.ToYesOrNo()</td>
+                                <td>@resident.ContactNo</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#residents').DataTable({
+                "searching": true,
+                "paging":   true,
+                "info": true
+            });
+        })
+    </script>
+}

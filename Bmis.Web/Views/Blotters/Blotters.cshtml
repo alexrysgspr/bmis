@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["title"] = "Blotters";
+}
+
+@using Bmis.Web.Extensions
+@model List<Bmis.Web.Controllers.Blotters.BlotterViewModel>
+@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box box-solid bg-black">
+            <div class="box-header with-border">
+                <ul class="box-controls pull-right">
+                    <a asp-controller="Blotters"
+                       asp-action="Add"
+                       class="btn btn-success">Add new blotter</a>
+                </ul>
+            </div>
+            <div class="box-body">						
+                <div class="table-responsive project-table">
+                    <table id="blotter" class="table table-hover table-bordered table-striped display nowrap margin-top-10">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Complainant</th>
+                            <th>Respondent</th>
+                            <th>Blotter Type</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            var blotter = Model[i];
+
+                            <tr>
+                                <td>@(i+1)</td>
+                                <td>
+                                    <a asp-action="Blotter"
+                                       asp-controller="Blotters"
+                                       asp-route-id="@blotter.Id">
+                                        @blotter.Complainant
+                                    </a>
+                                </td>
+                                <td>@blotter.Respondent</td>
+                                <td>@blotter.BlotterType</td>
+                                <td>@blotter.Location</td>
+                                <td>@blotter.Status</td>
+                                <td>@blotter.DateTime</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#blotter').DataTable({
+                "searching": true,
+                "paging":   true,
+                "info": true
+            });
+        })
+    </script>
+}

@@ -1,0 +1,288 @@
+﻿@model Bmis.Web.Controllers.Residents.ResidentViewModel
+
+@{
+    ViewData["title"] = Model.GetFullName();
+}
+
+
+<div class="row">
+    <div class="col-xl-4 col-lg-5">
+        <!-- Profile Image -->
+        <div class="box bg-black">
+            <div class="box-body box-profile">
+                <img class="profile-user-img rounded img-fluid mx-auto d-block" src="~/images/5.jpg" alt="User profile picture">
+
+                <h2 class="profile-username text-center mb-0">
+                </h2>
+
+                <h4 class="text-center mt-0"><i class="fa fa-envelope-o mr-10"></i>@Model.Email</h4>
+                <h4 class="text-center mt-0"><i class="fa fa-address-book-o mr-10"></i>@Model.ContactNo</h4>
+
+                <div class="row">
+                    <dl class="dl-horizontal">
+                        <dt>Name:</dt>
+                        <dd>@Model.GetFullName()</dd>
+
+                        <dt>Gender:</dt>
+                        <dd>@Model.Gender</dd>
+
+                        <dt>Birthdate:</dt>
+                        <dd>@Model.Birthdate.ToString("d")</dd>
+
+                        <dt>Age:</dt>
+                        <dd>@Model.GetAge()</dd>
+
+                        <dt>Civil Status:</dt>
+                        <dd>@Model.CivilStatus</dd>
+
+                        <dt>Contact No.:</dt>
+                        <dd>@Model.ContactNo</dd>
+
+                        <dt>Email:</dt>
+                        <dd>@Model.Email</dd>
+
+                        <dt>Address:</dt>
+                        <dd>@Model.AddressLine</dd>
+
+                        <dt>Purok:</dt>
+                        <dd>@Model.Purok</dd>
+
+                        <dt>Voter Status:</dt>
+                        <dd>@Model.VoterStatus</dd>
+
+                        @if (Model.IsPwd)
+                        {
+                            <dt>Disability:</dt>
+                            <dd>@Model.Disability</dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-xl-8 col-lg-7">
+        <div class="box box-solid bg-black">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form asp-action="Resident" asp-controller="Residents" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">First Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" asp-for="FirstName">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Middle Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" asp-for="MiddleName">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Last Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" asp-for="LastName">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Extension</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" asp-for="Extension">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Gender</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="Gender">
+                                        @foreach (var gender in Enum.GetValues<Gender>())
+                                        {
+                                            <option value="@gender">@gender</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Birthdate</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="date" asp-for="Birthdate">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Civil Status</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="CivilStatus">
+                                        @foreach (var status in Enum.GetValues<CivilStatus>())
+                                        {
+                                            <option value="@status">@status</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Contact No.</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" asp-for="ContactNo">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Email Address</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" asp-for="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" class="form-control" asp-for="AddressId">
+                                    <select
+                                        class="col-sm-10 form-control"
+                                        data-placeholder="Search address"
+                                        style="width: 100%"
+                                        asp-for="AddressLine">
+                                        <option value="@Model.AddressId">@Model.AddressLine</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Purok</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" asp-for="Purok">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Voter Status</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="VoterStatus">
+                                        @foreach (var status in Enum.GetValues<VoterStatus>())
+                                        {
+                                            <option value="@status">@status</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" asp-for="IsPwd">
+                                    <label class="form-check-label" for="IsPwd">
+                                        Is PWD?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Disability</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" asp-for="Disability">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </form>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section Scripts{
+    <script src="~/assets/vendor_components/select2/dist/js/select2.full.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#AddressLine").select2({
+                tags: true,
+                allowClear: true,
+                minimumInputLength: 3,
+                ajax: {
+                    delay: 250,
+                    url: '/households/search',
+                    dataType: 'json',
+                    data: function(params) {
+                        return { query: params.term };
+                    },
+                    processResults: function(data) {
+                        var result = $.map(data,
+                            function(obj) {
+                                return {
+                                    id: obj.id,
+                                    text: obj.addressLine,
+                                    purok: obj.purok
+                                };
+                            });
+
+                        return {
+                            results: result
+                        };
+                    }
+                },
+                templateSelection: formatState,
+                templateResult: formatTemplate
+            });
+
+            function formatTemplate(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = $(
+                    '<span>' +
+                    '<div>Address: ' + state.text + '</div>' +
+                    '</span>'
+                );
+                if (state.purok) {
+                    $state.find("div").append('<div>Purok: ' + state.purok + '</div>');
+                }
+
+                return $state;
+            };
+
+            function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+
+                var $state = $(
+                    '<span><span></span></span>'
+                );
+
+                $state.find("span").text(state.text);
+
+                return $state;
+            };
+
+            $('#AddressLine').on('select2:select', function(e) {
+                var data = e.params.data;
+                if (data.purok) {
+                    $("#Purok").val(data.purok);
+                    $("#Purok").attr("disabled", "disabled");
+                    $("#AddressId").val(data.id);
+                } else {
+                    $("#Purok").val("");
+                    $("#Purok").prop("disabled", false);
+                    $("#AddressId").val(0);
+                }
+            });
+
+            $("#AddressLine").on("select2:unselecting",
+                function() {
+                    $("#Purok").val("");
+                    $("#Purok").prop("disabled", false);
+                    $("#AddressId").val(0);
+                });
+        })
+    </script>
+}

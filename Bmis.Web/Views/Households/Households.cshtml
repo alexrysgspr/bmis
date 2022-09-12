@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["title"] = "Households";
+}
+
+@model List<Bmis.Web.Controllers.Households.HouseHoldViewModel>
+@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box box-solid bg-black">
+            <div class="box-header with-border">
+                <ul class="box-controls pull-right">
+                    &nbsp;
+                </ul>
+            </div>
+            <div class="box-body">						
+                <div class="table-responsive project-table">
+                    <table id="residents" class="table table-hover table-bordered table-striped display nowrap margin-top-10">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Address</th>
+                            <th>Purok</th>
+                            <th>Total Males</th>
+                            <th>Total Females</th>
+                            <th>Total PWD</th>
+                            <th>Total Voters</th>
+                            <th>Total Members</th>
+                        </tr>
+                        </thead>
+                        
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            var household = Model[i];
+
+                            <tr>
+                                <td>@(i+1)</td>
+                                <td>
+                                    <a asp-action="Household"
+                                       asp-controller="Households"
+                                       asp-route-id="@household.AddressId">
+                                        @household.Address
+                                    </a>
+                                </td>
+                                <td>
+                                    @household.Purok
+                                </td>
+                                <td>
+                                    @household.TotalMale
+                                </td>
+                                <td>
+                                    @household.TotalFemale
+                                </td>
+                                <td>
+                                    @household.TotalPwd
+                                </td>
+                                <td>
+                                    @household.TotalVoters
+                                </td>
+                                <td>
+                                    @household.TotalMembers
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#residents').DataTable({
+                "searching": true,
+                "paging":   true,
+                "info": true
+            });
+        })
+    </script>
+}

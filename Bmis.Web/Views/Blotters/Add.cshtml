@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["title"] = "Add new blotter";
+}
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Bmis.Web.Controllers.Blotters.BlotterViewModel
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="box box-solid bg-black">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add new resident</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form asp-action="Blotter" asp-controller="Blotters" method="post">
+                    <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Complainant</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" asp-for="Complainant">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Respondent</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" asp-for="Respondent">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Blotter Type</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" asp-for="BlotterType">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Location</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" asp-for="Location">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">DateTime</label>
+                            <div class="col-sm-10">
+                                <div class="col-sm-10">
+                                    <input class="form-control" asp-for="DateTime">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Status</label>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    @foreach (var status in Enum.GetValues<BlotterStatus>())
+                                    {
+                                        <option value="@status">@status</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Details</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="10" asp-for="Details"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                </form>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

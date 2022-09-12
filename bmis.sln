@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bmis.Web", "Bmis.Web\Bmis.Web.csproj", "{63B2334F-8D6C-467F-BC2A-BD97C99BC599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bmis.EntityFramework", "Bmis.EntityFramework\Bmis.EntityFramework.csproj", "{A0CDE80A-201B-4F88-B071-D28D8C08A00E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63B2334F-8D6C-467F-BC2A-BD97C99BC599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B2334F-8D6C-467F-BC2A-BD97C99BC599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B2334F-8D6C-467F-BC2A-BD97C99BC599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B2334F-8D6C-467F-BC2A-BD97C99BC599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CDE80A-201B-4F88-B071-D28D8C08A00E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CDE80A-201B-4F88-B071-D28D8C08A00E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CDE80A-201B-4F88-B071-D28D8C08A00E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CDE80A-201B-4F88-B071-D28D8C08A00E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7D253BB-9058-43BB-9612-D7BB5035BFEF}
+	EndGlobalSection
+EndGlobal

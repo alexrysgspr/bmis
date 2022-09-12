@@ -1,0 +1,341 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+@using System.Text.Json
+@model Bmis.Web.Controllers.DashboardViewModel
+<div class="row">
+    <div class="col-lg-6 col-12">
+        <div class="box box-solid bg-black">
+            <div class="box-header with-border">
+                <h4 class="box-title">Barangay Camasi</h4>
+            </div>
+            <div class="box-body p-2">
+                <div class="row justify-content-center mt-15">
+                    <h4>Barangay Officials</h4>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Barangay Captain</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Secretary</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Treasurer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box box-body text-center pull-up">
+                            <a href="#">
+                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                            </a>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
+                            <p class="text-fade">Kagawad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12">
+        <div class="row">
+            <div class="col-md-4 col-6">
+                <div class="box box-body pull-up bg-warning bg-deathstar-white">
+                    <div class="flexbox">
+                        <span class="fa fa-users font-size-40"></span>
+                        <span class="font-weight-200 font-size-26">@Model.TotalResidents</span>
+                    </div>
+                    <div class="text-right">Total Residents</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="box box-body pull-up bg-danger bg-deathstar-white">
+                    <div class="flexbox">
+                        <span class="fa fa-drivers-license-o font-size-40"></span>
+                        <span class="font-weight-200 font-size-26">@Model.TotalActiveVoters</span>
+                    </div>
+                    <div class="text-right">Active Voters</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="box box-body pull-up bg-info bg-deathstar-white">
+                    <div class="flexbox">
+                        <span class="fa fa-wheelchair font-size-40"></span>
+                        <span class="font-weight-200 font-size-26">@Model.TotalPwd</span>
+                    </div>
+                    <div class="text-right">PWD</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid bg-black">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">Population by Purok</h4>
+                        <ul class="box-controls pull-right">
+                            <li><a class="box-btn-close" href="#"></a></li>
+                            <li><a class="box-btn-slide" href="#"></a></li>	
+                            <li><a class="box-btn-fullscreen" href="#"></a></li>
+                        </ul>
+                    </div>
+                    <div class="box-body">					  
+                        <div class="chart">
+                            <canvas id="purok-population" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid bg-black">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">Population Classification</h4>
+                        <ul class="box-controls pull-right">
+                            <li><a class="box-btn-close" href="#"></a></li>
+                            <li><a class="box-btn-slide" href="#"></a></li>	
+                            <li><a class="box-btn-fullscreen" href="#"></a></li>
+                        </ul>
+                    </div>
+                    <div class="box-body">					  
+                        <div class="chart">
+                            <canvas id="population" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/assets/vendor_components/chart.js-master/Chart.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            if( $('#purok-population').length > 0 ){
+            var ctx2 = document.getElementById("purok-population").getContext("2d");
+
+            var data2 = {
+                labels: @Html.Raw(JsonSerializer.Serialize(Model.PurokPopulations.Select(x => x.Purok).ToList())),
+                datasets: [
+                    {
+                        label: "Purok population",
+                        backgroundColor: "#398bf7",
+                        borderColor: "#398bf7",
+                        data: @Html.Raw(JsonSerializer.Serialize(Model.PurokPopulations.Select(x => x.Total).ToList()))
+                    }
+                ]
+            };
+		
+            var hBar = new Chart(ctx2, {
+                type:"bar",
+                data:data2,
+			
+                options: {
+                    tooltips: {
+                        mode:"label"
+                    },
+                    scales: {
+                        yAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                color: "rgba(135,135,135,0)",
+                            },
+                            ticks: {
+                                fontFamily: "Poppins",
+                                fontColor:"#878787"
+                            }
+                        }],
+                        xAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                color: "rgba(135,135,135,0)",
+                            },
+                            ticks: {
+                                fontFamily: "Poppins",
+                                fontColor:"#878787"
+                            }
+                        }],
+					
+                    },
+                    elements:{
+                        point: {
+                            hitRadius:40
+                        }
+                    },
+                    animation: {
+                        duration:	3000
+                    },
+                    responsive: true,
+                    maintainAspectRatio:false,
+                    legend: {
+                        display: false,
+                    },
+				
+                    tooltip: {
+                        backgroundColor:'rgba(33,33,33,1)',
+                        cornerRadius:0,
+                        footerFontFamily:"'Poppins'"
+                    }
+				
+                }
+            });
+        }
+
+            if( $('#population').length > 0 ){
+                console.log(document.getElementById("population"))
+            var populationCtx = document.getElementById("population").getContext("2d");
+            var populationData = {
+                labels: @Html.Raw(JsonSerializer.Serialize(Model.PopulationClassifications.Select(x => x.Key).ToList())),
+                datasets: [
+                    {
+                        label: "Population Classification",
+                        backgroundColor: "#fb9678",
+                        borderColor: "#398bf7",
+                        data: @Html.Raw(JsonSerializer.Serialize(Model.PopulationClassifications.Select(x => x.Total).ToList()))
+                    }
+                ]
+            };
+		
+            var hBar = new Chart(populationCtx, {
+                type:"bar",
+                data:populationData,
+                options: {
+                    tooltips: {
+                        mode:"label"
+                    },
+                    scales: {
+                        yAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                color: "rgba(135,135,135,0)",
+                            },
+                            ticks: {
+                                fontFamily: "Poppins",
+                                fontColor:"#878787"
+                            }
+                        }],
+                        xAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                color: "rgba(135,135,135,0)",
+                            },
+                            ticks: {
+                                fontFamily: "Poppins",
+                                fontColor:"#878787"
+                            }
+                        }],
+					
+                    },
+                    elements:{
+                        point: {
+                            hitRadius:40
+                        }
+                    },
+                    animation: {
+                        duration:	3000
+                    },
+                    responsive: true,
+                    maintainAspectRatio:false,
+                    legend: {
+                        display: false,
+                    },
+				
+                    tooltip: {
+                        backgroundColor:'rgba(33,33,33,1)',
+                        cornerRadius:0,
+                        footerFontFamily:"'Poppins'"
+                    }
+				
+                }
+            });
+        }
+        })
+    </script>
+}
