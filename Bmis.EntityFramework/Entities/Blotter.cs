@@ -10,5 +10,7 @@
         public string BlotterType { get; set; }
         public DateTime DateTime { get; set; }
         public BlotterStatus Status { get; set; }
+        public int? BarangayId { get; set; }
+        public Barangay Barangay { get; set; }
     }
 }

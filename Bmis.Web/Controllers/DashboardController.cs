@@ -9,11 +9,11 @@ namespace Bmis.Web.Controllers;
 public class DashboardController : Controller
 {
     private readonly ILogger<DashboardController> _logger;
-    private readonly BmisDbContext _context;
+    private readonly ApplicationDbContext _context;
 
     public DashboardController(
         ILogger<DashboardController> logger,
-        BmisDbContext context)
+        ApplicationDbContext context)
     {
         _context = context;
         _logger = logger;

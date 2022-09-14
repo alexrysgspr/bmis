@@ -9,7 +9,7 @@ public class BlotterEntityConfiguration : IEntityTypeConfiguration<Blotter>
 {
     public void Configure(EntityTypeBuilder<Blotter> builder)
     {
-        builder.ToTable("Blotters", BmisDbContext.DefaultSchema);
+        builder.ToTable("Blotters", ApplicationDbContext.DefaultSchema);
 
         builder.HasKey(r => r.Id);
 
@@ -29,6 +29,10 @@ public class BlotterEntityConfiguration : IEntityTypeConfiguration<Blotter>
             .HasConversion<string>()
             .HasMaxLength(16);
 
+        builder
+            .HasOne(x => x.Barangay)
+            .WithMany(x => x.Blotters)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 
 }

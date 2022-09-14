@@ -4,16 +4,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace Bmis.EntityFramework.DesignTime;
 
-public class BmisDbContextFactory : IDesignTimeDbContextFactory<BmisDbContext>
+public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
-    public BmisDbContext CreateDbContext(string[] args)
+    public ApplicationDbContext CreateDbContext(string[] args)
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddUserSecrets(typeof(BmisEntityFramework).Assembly)
+            .AddUserSecrets(typeof(ApplicationDbContext).Assembly)
             .Build();
 
-        var builder = new DbContextOptionsBuilder<BmisDbContext>();
+        var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
         var connectionString = configuration.GetValue<string>("SqlConnection");
 
@@ -25,6 +25,6 @@ public class BmisDbContextFactory : IDesignTimeDbContextFactory<BmisDbContext>
         builder
             .UseSqlServer(connectionString, x => { x.EnableRetryOnFailure(); });
 
-        return new BmisDbContext(builder.Options);    
+        return new ApplicationDbContext(builder.Options);    
     }
 }

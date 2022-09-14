@@ -16,7 +16,7 @@ namespace Bmis.Web.Controllers.Residents
         public string ContactNo { get; set; }
         public string Email { get; set; }
         public string AddressLine { get; set; }
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         public string Purok { get; set; }
         public bool IsPwd { get; set; }
         public string Disability { get; set; }

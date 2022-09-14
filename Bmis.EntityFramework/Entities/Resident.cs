@@ -15,8 +15,11 @@
         public string Email { get; set; }
         public bool IsPwd { get; set; }
         public string Disability { get; set; }
-        public Address Address { get; set; }
-        public int AddressId { get; set; }
+        public Address? Address { get; set; }
+        public int? AddressId { get; set; }
+        public string AvatarUrl { get; set; }
+        public int? BarangayId { get; set; }
+        public Barangay? Barangay { get; set; }
     }
 
 }

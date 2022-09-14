@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Setup";
+    Layout = "_LayoutMin";
+}
+<div class="row h-p100 align-items-center">
+    <div class="col mx-auto">
+        <h1>Barangay Management Information System</h1>
+        <div class="box box-solid bg-dark">
+            <div class="box-header with-border">
+                <h3 class="box-title">Initial Setup</h3>
+            </div>
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a class="" href="#barangay-details" data-toggle="tab">Barangay Details</a></li>
+                        <li><a href="#barangay-officials" data-toggle="tab">Barangay Officials</a></li>
+                        <li><a href="#admin-configuration" data-toggle="tab" class="active show">Admin Configuration</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane" id="barangay-details">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" value="Johen Doe" id="example-text-input">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="formFile" class="form-label col-sm-2">Logo</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="file" id="formFile">
+                                        </div>
+                                    </div>
+                                        
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="barangay-officials">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Text</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" value="Johen Doe" id="example-text-input">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-search-input" class="col-sm-2 col-form-label">Search</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane active show" id="admin-configuration">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Text</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" value="Johen Doe" id="example-text-input">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-search-input" class="col-sm-2 col-form-label">Search</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+
+            </div>
+        </div>
+        <!-- /.nav-tabs-custom -->
+    </div>
+</div>

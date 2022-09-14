@@ -7,12 +7,12 @@ namespace Bmis.Web.Controllers.Blotters
     [Route("[controller]")]
     public class BlottersController : Controller
     {
-        private readonly BmisDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public BlottersController(BmisDbContext context)
+        public BlottersController(ApplicationDbContext context)
         {
             _context = context;
         }

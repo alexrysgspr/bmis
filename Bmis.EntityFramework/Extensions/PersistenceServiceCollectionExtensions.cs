@@ -10,7 +10,7 @@ namespace Bmis.EntityFramework.Extensions
     {
         public static IServiceCollection AddAppPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<BmisDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
                 //options.UseInMemoryDatabase("Bmis");

@@ -7,12 +7,12 @@ namespace Bmis.Web.Controllers.Residents
     [Route("[controller]")]
     public class ResidentsController : Controller
     {
-        private readonly BmisDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public ResidentsController(BmisDbContext context)
+        public ResidentsController(ApplicationDbContext context)
         {
             _context = context;
         }

@@ -9,11 +9,9 @@ public class ResidentEntityConfiguration : IEntityTypeConfiguration<Resident>
 {
     public void Configure(EntityTypeBuilder<Resident> builder)
     {
-        builder.ToTable("Residents", BmisDbContext.DefaultSchema);
+        builder.ToTable("Residents", ApplicationDbContext.DefaultSchema);
 
         builder.HasKey(r => r.Id);
-
-        builder.HasOne(x => x.Address);
 
         builder.Property(x => x.FirstName)
             .HasMaxLength(PropertyLimits.DefaultLimit);
@@ -55,6 +53,11 @@ public class ResidentEntityConfiguration : IEntityTypeConfiguration<Resident>
             .HasMaxLength(PropertyLimits.DefaultLimit);
 
         builder.HasOne(x => x.Address);
+
+        builder
+            .HasOne(x => x.Barangay)
+            .WithMany(x => x.Residents)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 
     public class PropertyLimits

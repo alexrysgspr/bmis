@@ -9,12 +9,12 @@ namespace Bmis.Web.Controllers.Households
     [Route("[controller]")]
     public class HouseholdsController : Controller
     {
-        private readonly BmisDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public HouseholdsController(BmisDbContext context)
+        public HouseholdsController(ApplicationDbContext context)
         {
             _context = context;
         }
