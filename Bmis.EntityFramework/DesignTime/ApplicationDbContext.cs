@@ -1,11 +1,11 @@
 ﻿using Bmis.EntityFramework.Entities;
-using Microsoft.AspNetCore.Identity;
+using Bmis.EntityFramework.EntityConfigurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bmis.EntityFramework.DesignTime
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public const string DefaultSchema = "bmis";
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -23,7 +23,16 @@ namespace Bmis.EntityFramework.DesignTime
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            builder
+                .ApplyConfiguration(new BarangayEntityConfiguration())
+                .ApplyConfiguration(new IdentityRoleEntityConfiguration())
+                .ApplyConfiguration(new ResidentEntityConfiguration())
+                .ApplyConfiguration(new AddressEntityConfiguration())
+                .ApplyConfiguration(new BlotterEntityConfiguration());
+
             base.OnModelCreating(builder);
+
         }
     }
 }

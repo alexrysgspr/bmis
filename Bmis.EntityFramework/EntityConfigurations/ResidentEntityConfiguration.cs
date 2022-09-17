@@ -52,12 +52,12 @@ public class ResidentEntityConfiguration : IEntityTypeConfiguration<Resident>
             .HasConversion<string>()
             .HasMaxLength(PropertyLimits.DefaultLimit);
 
-        builder.HasOne(x => x.Address);
-
         builder
             .HasOne(x => x.Barangay)
             .WithMany(x => x.Residents)
-            .OnDelete(DeleteBehavior.SetNull);
+            .HasForeignKey(x => x.BarangayId)
+            .OnDelete(DeleteBehavior.NoAction);
+
     }
 
     public class PropertyLimits

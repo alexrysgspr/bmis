@@ -9,7 +9,7 @@ public class BarangayEntityConfiguration : IEntityTypeConfiguration<Barangay>
 {
     public void Configure(EntityTypeBuilder<Barangay> builder)
     {
-        builder.ToTable("Residents", ApplicationDbContext.DefaultSchema);
+        builder.ToTable("Barangays", ApplicationDbContext.DefaultSchema);
 
         builder.HasKey(r => r.Id);
 
@@ -24,6 +24,28 @@ public class BarangayEntityConfiguration : IEntityTypeConfiguration<Barangay>
         builder
             .Property(x => x.Logo)
             .HasMaxLength(PropertyLimits.MaxLimit);
+
+        builder.HasMany(x => x.Residents)
+            .WithOne(x => x.Barangay)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder
+            .HasMany(x => x.Addresses)
+            .WithOne(x => x.Barangay)
+            .HasForeignKey(x => x.BarangayId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder
+            .HasMany(x => x.Residents)
+            .WithOne(x => x.Barangay)
+            .HasForeignKey(x => x.BarangayId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder
+            .HasMany(x => x.Blotters)
+            .WithOne(x => x.Barangay)
+            .HasForeignKey(x => x.BarangayId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 
     public class PropertyLimits

@@ -88,7 +88,7 @@ namespace Bmis.Web.Controllers.Residents
 
             if (model.AddressId > 0)
             {
-                resident.AddressId = model.AddressId;
+                resident.AddressId = model.AddressId.Value;
             }
             else
             {
@@ -119,7 +119,7 @@ namespace Bmis.Web.Controllers.Residents
 
             if (model.AddressId > 0)
             {
-                entity.AddressId = model.AddressId;
+                entity.AddressId = model.AddressId.Value;
             }
             else
             {

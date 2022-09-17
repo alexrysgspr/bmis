@@ -2,7 +2,9 @@ using Bmis.EntityFramework.DesignTime;
 using Bmis.EntityFramework.Entities;
 using Bmis.EntityFramework.Extensions;
 using Bmis.Web.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,25 +17,28 @@ builder
             options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"),
                 action => action.MigrationsAssembly("Bmis.EntityFramework"));
         })
-    .AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddIdentity<ApplicationUser, IdentityRole>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+    {
+        options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+        options.Cookie.Name = "YourAppCookieName";
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.LoginPath = "/Account/Login";
+        options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+        options.SlidingExpiration = true;
+    });
 
-// Add services to the container.
 builder
     .Services
     .AddAppPersistence(builder.Configuration)
     .AddRouting(options => options.LowercaseUrls = true)
-    .AddControllersWithViews()
+    .AddControllersWithViews(x => x.Filters.Add(new AuthorizeFilter()))
     .AddRazorRuntimeCompilation();
 
-builder.Services.AddRazorPages(options =>
-{
-    options.Conventions.AuthorizeFolder("/Account/Manage");
-    options.Conventions.AuthorizePage("/Account/Logout");
-    options.Conventions.AllowAnonymousToPage("/Account/Login");
-});
 
 var app = builder.Build();
 
@@ -49,12 +54,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllers();
-        endpoints.MapRazorPages();
     });
 
 

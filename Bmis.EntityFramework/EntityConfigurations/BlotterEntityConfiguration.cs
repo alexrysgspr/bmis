@@ -32,6 +32,7 @@ public class BlotterEntityConfiguration : IEntityTypeConfiguration<Blotter>
         builder
             .HasOne(x => x.Barangay)
             .WithMany(x => x.Blotters)
+            .HasForeignKey(x => x.BarangayId)
             .OnDelete(DeleteBehavior.NoAction);
     }
 

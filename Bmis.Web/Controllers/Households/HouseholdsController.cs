@@ -80,7 +80,7 @@ namespace Bmis.Web.Controllers.Households
             var household = await _context
                 .Addresses
                 .AsNoTracking()
-                .Where(x => x.AddressLine.StartsWith(query))
+                .Where(x => x.AddressLine.StartsWith(query, StringComparison.InvariantCultureIgnoreCase))
                 .Select(x => new { x.Id, x.AddressLine, x.Purok })
                 .ToListAsync();
 

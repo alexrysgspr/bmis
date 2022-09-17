@@ -30,7 +30,7 @@
 	<![endif]-->
 
 </head>
-<body class="hold-transition">
+<body class="hold-transition" style="background-color: #242a33">
 	<section class="h-p100 bg-img text-center" style="background-image: url(~/images/gallery/full/8.jpg)" data-overlay="1">
 		<div class="container h-p100">
 			<div class="row h-p100 align-items-center">
@@ -48,6 +48,7 @@
 	<script src="~/assets/vendor_components/popper/dist/popper.min.js"></script>
 	
 	<!-- Bootstrap 4.0-->
-	<script src="~/assets/vendor_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/assets/vendor_components/bootstrap/dist/js/bootstrap.min.js"></script>
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>

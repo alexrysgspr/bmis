@@ -1,5 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
+    var captain = Model.Officials.First(x => x.Position == "Barangay Captain");
+    var treasurer = Model.Officials.First(x => x.Position == "Treasurer");
+    var secretary = Model.Officials.First(x => x.Position == "Secretary");
+    var kagawads = Model.Officials.Where(x => x.Position.Contains("Kagawad")).ToList();
 }
 @using System.Text.Json
 @model Bmis.Web.Controllers.DashboardViewModel
@@ -7,116 +11,56 @@
     <div class="col-lg-6 col-12">
         <div class="box box-solid bg-black">
             <div class="box-header with-border">
-                <h4 class="box-title">Barangay Camasi</h4>
+                <h4 class="box-title">@Model.BarangayName</h4>
             </div>
             <div class="box-body p-2">
-                <div class="row justify-content-center mt-15">
+                <div class="d-flex justify-content-center mt-15">
                     <h4>Barangay Officials</h4>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-3">
+                <div class="d-flex justify-content-center">
+                    <div class="col-auto">
                         <div class="box box-body text-center pull-up">
                             <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                                <img class="avatar avatar-xxl" src="~/@captain.Image" alt="">
                             </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Barangay Captain</p>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">@captain.Name</a></h5>
+                            <p class="text-fade">@captain.Position</p>
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-3">
+                <div class="d-flex justify-content-around">
+                    <div class="col-auto">
                         <div class="box box-body text-center pull-up">
                             <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                                <img class="avatar avatar-xxl" src="~/@treasurer.Image" alt="">
                             </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Secretary</p>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">@treasurer.Name</a></h5>
+                            <p class="text-fade">@treasurer.Position</p>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-auto">
                         <div class="box box-body text-center pull-up">
                             <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
+                                <img class="avatar avatar-xxl" src="~/@secretary.Image" alt="">
                             </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Treasurer</p>
+                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">@secretary.Name</a></h5>
+                            <p class="text-fade">@secretary.Position</p>
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
+                <div class="d-flex flex-wrap justify-content-around">
+                    @foreach (var kagawad in kagawads)
+                    {
+                        <div class="col-auto">
+                            <div class="box box-body text-center pull-up">
+                                <a href="#">
+                                    <img class="avatar avatar-xxl" src="~/@kagawad.Image" alt="">
+                                </a>
+                                <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">@kagawad.Name</a></h5>
+                                <p class="text-fade">@kagawad.Position</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="box box-body text-center pull-up">
-                            <a href="#">
-                                <img class="avatar avatar-xxl" src="~/images/avatar/1.jpg" alt="">
-                            </a>
-                            <h5 class="mt-3 mb-1"><a class="hover-primary" href="#">Mika Khalif</a></h5>
-                            <p class="text-fade">Kagawad</p>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

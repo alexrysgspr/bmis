@@ -9,6 +9,9 @@ namespace Bmis.EntityFramework.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "bmis");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -24,40 +27,16 @@ namespace Bmis.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Barangays",
+                schema: "bmis",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Logo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Logo = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Officials = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Host = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Host = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,6 +62,128 @@ namespace Bmis.EntityFramework.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                schema: "bmis",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddressLine = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Purok = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    BarangayId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Barangays_BarangayId",
+                        column: x => x.BarangayId,
+                        principalSchema: "bmis",
+                        principalTable: "Barangays",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BarangayId = table.Column<int>(type: "int", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Barangays_BarangayId",
+                        column: x => x.BarangayId,
+                        principalSchema: "bmis",
+                        principalTable: "Barangays",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Blotters",
+                schema: "bmis",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Complainant = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Respondent = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    BlotterType = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    BarangayId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Blotters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Blotters_Barangays_BarangayId",
+                        column: x => x.BarangayId,
+                        principalSchema: "bmis",
+                        principalTable: "Barangays",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Residents",
+                schema: "bmis",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    MiddleName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    Extension = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CivilStatus = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    VoterStatus = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    ContactNo = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    IsPwd = table.Column<bool>(type: "bit", nullable: false),
+                    Disability = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BarangayId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Residents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Residents_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalSchema: "bmis",
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Residents_Barangays_BarangayId",
+                        column: x => x.BarangayId,
+                        principalSchema: "bmis",
+                        principalTable: "Barangays",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -170,90 +271,19 @@ namespace Bmis.EntityFramework.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AddressLine = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Purok = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BarangayId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Addresses_Barangays_BarangayId",
-                        column: x => x.BarangayId,
-                        principalTable: "Barangays",
-                        principalColumn: "Id");
-                });
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "9dbec02e-5b6c-47c0-980f-942e374477a5", "8118ce8e-f499-402b-8a9e-416cc3f0cd45", "SuperAdmin", "SUPERADMIN" });
 
-            migrationBuilder.CreateTable(
-                name: "Blotters",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Complainant = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Respondent = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlotterType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    BarangayId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Blotters", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Blotters_Barangays_BarangayId",
-                        column: x => x.BarangayId,
-                        principalTable: "Barangays",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Residents",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CivilStatus = table.Column<int>(type: "int", nullable: false),
-                    VoterStatus = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    ContactNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPwd = table.Column<bool>(type: "bit", nullable: false),
-                    Disability = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: true),
-                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BarangayId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Residents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Residents_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Residents_Barangays_BarangayId",
-                        column: x => x.BarangayId,
-                        principalTable: "Barangays",
-                        principalColumn: "Id");
-                });
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "ac4ed36a-332b-4d6f-bb83-a8520fdfe136", "1218ec13-50b3-43f1-825c-cc47dfa17972", "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_BarangayId",
+                schema: "bmis",
                 table: "Addresses",
                 column: "BarangayId");
 
@@ -290,6 +320,11 @@ namespace Bmis.EntityFramework.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_BarangayId",
+                table: "AspNetUsers",
+                column: "BarangayId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -298,16 +333,19 @@ namespace Bmis.EntityFramework.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blotters_BarangayId",
+                schema: "bmis",
                 table: "Blotters",
                 column: "BarangayId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Residents_AddressId",
+                schema: "bmis",
                 table: "Residents",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Residents_BarangayId",
+                schema: "bmis",
                 table: "Residents",
                 column: "BarangayId");
         }
@@ -330,10 +368,12 @@ namespace Bmis.EntityFramework.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Blotters");
+                name: "Blotters",
+                schema: "bmis");
 
             migrationBuilder.DropTable(
-                name: "Residents");
+                name: "Residents",
+                schema: "bmis");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -342,10 +382,12 @@ namespace Bmis.EntityFramework.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Addresses",
+                schema: "bmis");
 
             migrationBuilder.DropTable(
-                name: "Barangays");
+                name: "Barangays",
+                schema: "bmis");
         }
     }
 }

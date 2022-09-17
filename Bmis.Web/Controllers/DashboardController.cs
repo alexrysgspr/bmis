@@ -1,9 +1,12 @@
-﻿using Bmis.EntityFramework.DesignTime;
+﻿using System.Text.Json;
+using Bmis.EntityFramework.DesignTime;
 using Bmis.EntityFramework.Entities;
+using Bmis.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bmis.Web.Controllers;
+
 
 [Route("[controller]")]
 public class DashboardController : Controller
@@ -24,8 +27,15 @@ public class DashboardController : Controller
     [HttpGet]
     public async Task<IActionResult> Dashboard()
     {
+        var barangayId = User.GetBarangayId();
 
-        var model = new DashboardViewModel();
+        var barangay = await _context.Barangays.FirstOrDefaultAsync(x => x.Id == barangayId);
+
+        var model = new DashboardViewModel
+        {
+            BarangayName = barangay.Name,
+            Officials = JsonSerializer.Deserialize<List<Official>>(barangay.Officials)
+        };
 
         model.TotalResidents = await _context
             .Residents
@@ -42,24 +52,24 @@ public class DashboardController : Controller
             .AsNoTracking()
             .CountAsync(x => x.IsPwd);
 
-        var purokPopulation = await _context
-            .Addresses
-            .Include(x => x.Residents)
-            .Select(x => new
-            {
-                x.Purok,
-                Count = x.Residents.Count()
-            })
-            .ToListAsync();
+        //var purokPopulation = await _context
+        //    .Addresses
+        //    .Include(x => x.Residents)
+        //    .Select(x => new
+        //    {
+        //        x.Purok,
+        //        Count = x.Residents.Count()
+        //    })
+        //    .ToListAsync();
 
-        model.PurokPopulations = purokPopulation
-            .GroupBy(x => x.Purok)
-            .Select(x => new PurokPopulation
-            {
-                Purok = x.Key,
-                Total = x.Sum(y => y.Count)
-            })
-            .ToList();
+        //model.PurokPopulations = purokPopulation
+        //    .GroupBy(x => x.Purok)
+        //    .Select(x => new PurokPopulation
+        //    {
+        //        Purok = x.Key,
+        //        Total = x.Sum(y => y.Count)
+        //    })
+        //    .ToList();
 
         model.PopulationClassifications = await _context
             .Residents

@@ -6,7 +6,7 @@
         public string AddressLine { get; set; }
         public string Purok { get; set; }
         public List<Resident> Residents { get; set; }
-        public int? BarangayId { get; set; }
+        public int BarangayId { get; set; }
         public Barangay Barangay { get; set; }
     }
 }

@@ -1,87 +1,210 @@
 ﻿@{
-    ViewBag.Title = "Setup";
+    ViewBag.Position = "Setup";
     Layout = "_LayoutMin";
 }
+@model Bmis.Web.Controllers.Setup.SetupViewModel
+
 <div class="row h-p100 align-items-center">
     <div class="col mx-auto">
         <h1>Barangay Management Information System</h1>
-        <div class="box box-solid bg-dark">
-            <div class="box-header with-border">
-                <h3 class="box-title">Initial Setup</h3>
-            </div>
-            <div class="box-body">
-                <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
-                        <li><a class="" href="#barangay-details" data-toggle="tab">Barangay Details</a></li>
-                        <li><a href="#barangay-officials" data-toggle="tab">Barangay Officials</a></li>
-                        <li><a href="#admin-configuration" data-toggle="tab" class="active show">Admin Configuration</a></li>
-                    </ul>
+        <form enctype="multipart/form-data" method="post">
+            <div class="box box-solid bg-dark">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Initial Setup</h3>
+                </div>
+                <div class="box-body">
+                    <div asp-validation-summary="All" class="alert-danger"></div>
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li><a class="active show" href="#barangay-details" data-toggle="tab">Barangay Details</a></li>
+                            <li><a href="#barangay-officials" data-toggle="tab">Barangay Officials</a></li>
+                            <li><a href="#admin-configuration" data-toggle="tab">Admin Configuration</a></li>
+                        </ul>
 
-                    <div class="tab-content">
-                        <div class="tab-pane" id="barangay-details">
-                            <div class="row">
+                        <div class="tab-content">
+                            <div class="tab-pane active show" id="barangay-details">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="text" asp-for="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label asp-for="Logo" class="form-label col-sm-2">Logo</label>
+                                            <div class="col-sm-10">
+                                                <input accept=".jpg,.png" class="form-control" asp-for="Logo" type="file">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="barangay-officials">
+                                <div class="col-12">
+
+                                    <div class="table-responsive">
+                                        <table id="officials" class="table table-bordered table-striped" style="cursor: pointer;">
+                                            <thead>
+                                            <tr>
+                                                <th width="20%">Position</th>
+                                                <th width="50%">Name</th>
+                                                <th width="30%">Image</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[0].Position" readonly="" value="Barangay Captain">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[0].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[0].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[1].Position" readonly="" value="Secretary">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[1].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[1].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[2].Position" readonly="" value="Treasurer">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[2].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[2].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[3].Position" readonly="" value="Kagawad #1">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[3].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[3].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[4].Position" readonly="" value="Kagawad #2">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[4].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[4].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[5].Position" readonly="" value="Kagawad #3">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[5].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[5].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[6].Position" readonly="" value="Kagawad #4">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[6].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[6].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[7].Position" readonly="" value="Kagawad #5">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[7].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[7].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[8].Position" readonly="" value="Kagawad #6">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[8].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[8].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[9].Position" readonly="" value="Kagawad #7">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" type="text" asp-for="Officials[9].Name">
+                                                </td>
+                                                <td tabindex="1">
+                                                    <input class="form-control" asp-for="Officials[9].Image" type="file">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="admin-configuration">
                                 <div class="col-12">
                                     <div class="form-group row">
-                                        <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
+                                        <label asp-for="AdminUsername" class="col-sm-2 col-form-label">Username</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" type="text" value="Johen Doe" id="example-text-input">
+                                            <input class="form-control" type="text" asp-for="AdminUsername">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="formFile" class="form-label col-sm-2">Logo</label>
+                                        <label asp-for="AdminPassword" class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" type="file" id="formFile">
+                                            <input class="form-control" type="password" asp-for="AdminPassword">
                                         </div>
                                     </div>
-                                        
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                        <!-- /.tab-pane -->
-
-                        <div class="tab-pane" id="barangay-officials">
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Text</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" value="Johen Doe" id="example-text-input">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="example-search-input" class="col-sm-2 col-form-label">Search</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
+                                    <div class="form-group row">
+                                        <label asp-for="AdminConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="password" asp-for="AdminConfirmPassword">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- /.tab-pane -->
                         </div>
-                        <!-- /.tab-pane -->
-
-                        <div class="tab-pane active show" id="admin-configuration">
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Text</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" value="Johen Doe" id="example-text-input">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="example-search-input" class="col-sm-2 col-form-label">Search</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.tab-pane -->
+                        <!-- /.tab-content -->
                     </div>
-                    <!-- /.tab-content -->
+                    <button class="btn btn-success">Submit</button>
                 </div>
-
             </div>
-        </div>
+        </form>
         <!-- /.nav-tabs-custom -->
     </div>
 </div>
