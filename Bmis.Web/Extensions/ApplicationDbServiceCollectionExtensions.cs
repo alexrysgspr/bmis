@@ -11,16 +11,21 @@ public static class ApplicationDbServiceCollectionExtensions
 
         await using var appContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        if (!appContext.Database.IsSqlServer()) return host;
-
-        try
+        if (appContext.Database.IsSqlServer())
         {
-            await appContext.Database.MigrateAsync();
+            try
+            {
+                await appContext.Database.MigrateAsync();
+            }
+            catch (Exception ex)
+            {
+                //Log errors or do anything you think it's needed
+                throw;
+            }
         }
-        catch (Exception ex)
+        else
         {
-            //Log errors or do anything you think it's needed
-            throw;
+            scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         }
 
         return host;

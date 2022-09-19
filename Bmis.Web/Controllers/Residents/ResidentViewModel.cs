@@ -9,6 +9,7 @@ namespace Bmis.Web.Controllers.Residents
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Extension { get; set; }
+        public IFormFile Photo { get; set; }
         public DateTime Birthdate { get; set; }
         public CivilStatus CivilStatus { get; set; }
         public VoterStatus VoterStatus { get; set; }

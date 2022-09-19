@@ -43,8 +43,6 @@ public class SetupController : Controller
     [HttpPost]
     public async Task<ActionResult> Setup(SetupViewModel model)
     {
-        var roles = await _roleManager.Roles.ToListAsync();
-
         if (!ModelState.IsValid)
         {
             return View(model);
@@ -57,14 +55,14 @@ public class SetupController : Controller
             {
                 Name = x.Name,
                 Position = x.Position,
-                Image = x.Image?.Length > 0 ? Path.Combine(path, $"{Guid.NewGuid()}{Path.GetExtension(x.Image.FileName)}") : string.Empty
+                Image = x.Image?.Length > 0 ? $"{Guid.NewGuid()}{Path.GetExtension(x.Image.FileName)}" : string.Empty
             })
             .ToList();
 
         var barangay = new Barangay
         {
             Name = model.Name,
-            Logo = Guid.NewGuid().ToString(),
+            Logo = $"{Guid.NewGuid()}{Path.GetExtension(model.Logo.FileName)}",
             Officials = JsonSerializer.Serialize(officials)
         };
 
@@ -90,14 +88,15 @@ public class SetupController : Controller
         }
 
         await _userManager.AddClaimAsync(user, new Claim(Claims.Barangay, barangay.Id.ToString()));
-        var userRoles = new List<string>
-        {
-            {
-                Roles.Admin.ToUpper()
-            }
-        };
 
-        await _userManager.AddToRolesAsync(user, userRoles);
+        var roleExists = await _roleManager.RoleExistsAsync(Roles.Admin);
+
+        if (!roleExists)
+        {
+            await _roleManager.CreateAsync(new IdentityRole(Roles.Admin));
+        }
+
+        await _userManager.AddToRoleAsync(user, Roles.Admin);
 
         if (!Directory.Exists(path))
         {
@@ -106,11 +105,13 @@ public class SetupController : Controller
 
         foreach (var official in from official in model.Officials let imagePath = officials[model.Officials.IndexOf(official)].Image where !string.IsNullOrEmpty(imagePath) select official)
         {
-            await using var officialStream = new FileStream(officials[model.Officials.IndexOf(official)].Image, FileMode.Create);
+            await using var officialStream = new FileStream(Path.Combine(path, officials[model.Officials.IndexOf(official)].Image), FileMode.Create);
             await official.Image.CopyToAsync(officialStream);
         }
 
-        await using var stream = new FileStream(Path.Combine(path, $"{Guid.NewGuid()}{Path.GetExtension(model.Logo.FileName)}"), FileMode.Create);
+        var logoPath = Path.Combine(path, $"{Guid.NewGuid()}{Path.GetExtension(model.Logo.FileName)}");
+
+        await using var stream = new FileStream(logoPath, FileMode.Create);
         await model.Logo.CopyToAsync(stream);
 
         await _signInManager.SignInAsync(user, true);

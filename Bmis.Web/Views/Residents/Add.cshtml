@@ -19,7 +19,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">First Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" asp-for="FirstName">
+                                    <input class="form-control input-sm" type="text" asp-for="FirstName">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -118,9 +118,47 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label asp-for="Photo" class="form-label col-sm-2">Photo</label>
+                                <div class="input-group col-sm-10">
+                                    <input accept=".jpg,.png" class="form-control" asp-for="Photo" type="file" onchange="loadFile(event)">
+                                    <div class="input-group-append">
+                                        <button id="camera-btn" type="button" class="btn btn-danger" data-target="#camera-dialog"><i class="fa fa-camera"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="form-label col-sm-2">Preview</label>
+                                <div class="input-group col-sm-10">
+                                    <img class="avatar avatar-xxl" id="preview"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="camera-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Camera</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mx-auto" id="camera"></div>
+                                            <div id="result" class="d-none d-flex justify-content-center">
+                                                <img class="align-center" id="result-img"/>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" id="capture-btn">Capture</button>
+                                            <button type="button" class="btn btn-primary d-none" id="capture-again-btn">Capture Again</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -137,10 +175,67 @@
 </div>
 
 
+<script src="~/assets/vendor_components/webcam.js"></script>
+<!-- CSS -->
+
+
 @section Scripts{
     <script src="~/assets/vendor_components/select2/dist/js/select2.full.min.js"></script>
-    <script>
+    <script language="javascript">
+        var loadFile = function(event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function() {
+                  URL.revokeObjectURL(output.src) // free memory
+                }
+              };
         $(document).ready(function() {
+            
+            function setupCamera(){
+                Webcam.set({
+                     width: 320,
+                     height: 240,
+                     image_format: 'jpeg',
+                     jpeg_quality: 90
+                 });
+
+                 Webcam.attach('#camera');
+            }
+            
+            function toggleElements(){
+               $("#result").toggleClass("d-none")
+               $("#camera").toggleClass("d-none")
+               $("#capture-again-btn").toggleClass("d-none")
+               $("#capture-btn").toggleClass("d-none")
+            }
+
+            $(document).on("click", "#camera-btn", function(){
+                $("#camera-dialog").modal();
+                 setupCamera()
+            });
+            
+            $(document).on("click", "#capture-btn", function(e) {
+                Webcam.snap( function(data_uri) {
+                   $("#result-img").attr("src", data_uri)
+                   toggleElements()
+                   Webcam.reset();
+                 });
+            });
+            
+            $(document).on("click", "#capture-again-btn", function(e) {
+               setupCamera()
+               $("#result-img").attr("src", "")
+               toggleElements()
+            });
+            
+            $('#camera-dialog').on('hidden.bs.modal', function (e) {
+			    Webcam.reset();
+                console.log($("#result-img").attr("src"))
+                if($("#result-img").attr("src") != ""){
+                    $("#preview").attr("src", $("#result-img").attr("src"))
+                }
+		    })
+
             $("#AddressLine").select2({
                 tags: true,
                 allowClear: true,
@@ -221,5 +316,10 @@
                     $("#AddressId").val(0);
                 });
         })
+    
+    
+    
+    
+    
     </script>
 }
