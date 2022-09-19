@@ -15,7 +15,7 @@
             </div>
             <div class="box-body">						
                 <div class="table-responsive project-table">
-                    <table id="residents" class="table table-hover table-bordered table-striped display nowrap margin-top-10">
+                    <table id="households" class="table table-hover table-bordered table-striped display nowrap margin-top-10">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -69,10 +69,17 @@
     </div>
 </div>
 
-@section Scripts{
+@section Scripts
+{
+    <script src="~/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#residents').DataTable({
+            $('#households').DataTable({
+                "dom": 'Bfrtip',
+                "buttons": [
+                    'print'
+                ],
                 "searching": true,
                 "paging":   true,
                 "info": true

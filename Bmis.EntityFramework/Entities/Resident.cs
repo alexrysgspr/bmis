@@ -17,7 +17,7 @@
         public string Disability { get; set; }
         public Address Address { get; set; }
         public int AddressId { get; set; }
-        public string AvatarUrl { get; set; }
+        public string ImageUrl { get; set; }
         public int BarangayId { get; set; }
         public Barangay Barangay { get; set; }
     }

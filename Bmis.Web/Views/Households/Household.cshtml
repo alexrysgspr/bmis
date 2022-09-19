@@ -4,60 +4,63 @@
     ViewData["title"] = Model.Address;
 }
 
-<div class="d-flex">
-    <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-warning bg-deathstar-white">
-        <div class="flexbox">
-            <span class="fa fa-users font-size-40"></span>
-            <span class="font-weight-200 font-size-26">@Model.TotalMembers</span>
+<div class="row">
+    <div class="col-12 d-flex">
+        <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-warning bg-deathstar-white">
+            <div class="flexbox">
+                <span class="fa fa-users font-size-40"></span>
+                <span class="font-weight-200 font-size-26">@Model.TotalMembers</span>
+            </div>
+            <div class="text-right">Population</div>
         </div>
-        <div class="text-right">Population</div>
-    </div>
-    <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-danger bg-deathstar-white">
-        <div class="flexbox">
-            <span class="fa fa-drivers-license-o font-size-40"></span>
-            <span class="font-weight-200 font-size-26">@Model.TotalVoters</span>
+        <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-danger bg-deathstar-white">
+            <div class="flexbox">
+                <span class="fa fa-drivers-license-o font-size-40"></span>
+                <span class="font-weight-200 font-size-26">@Model.TotalVoters</span>
+            </div>
+            <div class="text-right">Voters</div>
         </div>
-        <div class="text-right">Voters</div>
-    </div>
-    <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-info bg-deathstar-white">
-        <div class="flexbox">
-            <span class="fa fa-wheelchair font-size-40"></span>
-            <span class="font-weight-200 font-size-26">@Model.TotalPwd</span>
+        <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-info bg-deathstar-white">
+            <div class="flexbox">
+                <span class="fa fa-wheelchair font-size-40"></span>
+                <span class="font-weight-200 font-size-26">@Model.TotalPwd</span>
+            </div>
+            <div class="text-right">PWD</div>
         </div>
-        <div class="text-right">PWD</div>
-    </div>
-    <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-info bg-deathstar-white">
-        <div class="flexbox">
-            <span class="fa fa-male font-size-40"></span>
-            <span class="font-weight-200 font-size-26">@Model.TotalMale</span>
+        <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-info bg-deathstar-white">
+            <div class="flexbox">
+                <span class="fa fa-male font-size-40"></span>
+                <span class="font-weight-200 font-size-26">@Model.TotalMale</span>
+            </div>
+            <div class="text-right">Male</div>
         </div>
-        <div class="text-right">Male</div>
-    </div>
-    <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-info bg-deathstar-white">
-        <div class="flexbox">
-            <span class="fa fa-female font-size-40"></span>
-            <span class="font-weight-200 font-size-26">@Model.TotalFemale</span>
+        <div class="box box-body col-auto flex-shrink-1 m-5 pull-up bg-info bg-deathstar-white">
+            <div class="flexbox">
+                <span class="fa fa-female font-size-40"></span>
+                <span class="font-weight-200 font-size-26">@Model.TotalFemale</span>
+            </div>
+            <div class="text-right">Female</div>
         </div>
-        <div class="text-right">Female</div>
     </div>
 </div>
 
 <div class="row">
-    @foreach (var resident in Model.Residents)
-    {
-        <a asp-action="Resident" asp-controller="Residents" asp-route-id="@resident.Id">
-
-            <div class="box box-body col-auto flex-shrink-1 m-5" style="width: 18rem;">
-                <div class="p-2">
-                    <img class="rounded my-10" src="~/images/card/1.jpg" alt="">
-                    <h5 class="m-0">
-
-                        @resident.GetFullName()
-                    </h5>
-                    <div>Gender: @resident.Gender</div>
-                    <div>Voter Status: @resident.VoterStatus</div>
+    <div class="col-12 d-flex flex-wrap justify-content-center">
+        @for (var index = 0; index < Model.Residents.Count; index++)
+        {
+            var resident = Model.Residents[index];
+            <a asp-action="Resident" asp-controller="Residents" asp-route-id="@resident.Id">
+                <div class="box box-body mh-100 col-auto flex-shrink-1 m-5" style="width: 18rem;">
+                    <div class="p-2">
+                        <img class="rounded my-10" src="~/uploads/@resident.ImageUrl" alt="">
+                        <h6 class="m-0 text-truncate">
+                            @resident.GetFullName()
+                        </h6>
+                        <div>Gender: @resident.Gender</div>
+                        <div>Voter Status: @resident.VoterStatus</div>
+                    </div>
                 </div>
-            </div>
-        </a>
-    }
+            </a>
+        }
+    </div>
 </div>

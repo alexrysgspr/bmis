@@ -8,30 +8,37 @@
     <div class="col-lg-6">
         <!-- Profile Image -->
         <div class="box bg-black">
+            <div class="box-header p-2">
+                <button class="btn btn-info btn-xs pull-right" id="print">Print</button>
+            </div>
             <div class="box-body box-profile">
-                <div class="row">
-                    <dl class="dl-horizontal">
-                        <dt>Complainant:</dt>
-                        <dd>@Model.Complainant</dd>
+                <div class="row" id="blotter">
+                    <div class="col-12">
+                        <dl class="dl-horizontal">
+                            <dt>Complainant:</dt>
+                            <dd>@Model.Complainant</dd>
 
-                        <dt>Respondent:</dt>
-                        <dd>@Model.Respondent</dd>
-                        
-                        <dt>Blotter Type:</dt>
-                        <dd>@Model.BlotterType</dd>
-                        
-                        <dt>Location:</dt>
-                        <dd>@Model.Location</dd>
-                        
-                        <dt>DateTime:</dt>
-                        <dd>@Model.DateTime.ToString("f")</dd>
-                        
-                        <dt>Status:</dt>
-                        <dd>@Model.Status</dd>
-                        
-                        <dt>Details:</dt>
-                        <dd>@Model.Details</dd>
-                    </dl>
+                            <dt>Respondent:</dt>
+                            <dd>@Model.Respondent</dd>
+
+                            <dt>Blotter Type:</dt>
+                            <dd>@Model.BlotterType</dd>
+
+                            <dt>Location:</dt>
+                            <dd>@Model.Location</dd>
+
+                            <dt>DateTime:</dt>
+                            <dd>@Model.DateTime.ToString("f")</dd>
+
+                            <dt>Status:</dt>
+                            <dd>@Model.Status</dd>
+
+                            <dt>Details:</dt>
+                            <dd>
+                                @Model.Details
+                            </dd>
+                        </dl>
+                    </div>
                 </div>
             </div>
             <!-- /.box-body -->
@@ -48,66 +55,66 @@
             <div class="box-body">
                 <form asp-action="Blotter" asp-controller="Blotters" method="post">
                     <div class="row">
-                    <div class="col-12">
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Complainant</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" asp-for="Complainant">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Respondent</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" asp-for="Respondent">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Blotter Type</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" asp-for="BlotterType">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Location</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" asp-for="Location">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">DateTime</label>
-                            <div class="col-sm-10">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Complainant</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" asp-for="DateTime">
+                                    <input class="form-control" type="text" asp-for="Complainant">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Respondent</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" asp-for="Respondent">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Blotter Type</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" asp-for="BlotterType">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Location</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" asp-for="Location">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">DateTime</label>
+                                <div class="col-sm-10">
+                                    <div class="col-sm-10">
+                                        <input class="form-control" asp-for="DateTime">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Status</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control">
+                                        @foreach (var status in Enum.GetValues<BlotterStatus>())
+                                        {
+                                            <option value="@status">@status</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Details</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="10" asp-for="Details"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Status</label>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    @foreach (var status in Enum.GetValues<BlotterStatus>())
-                                    {
-                                        <option value="@status">@status</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Details</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="10" asp-for="Details"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label"></label>
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-                        </div>
+                        <!-- /.col -->
                     </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
+                    <!-- /.row -->
                 </form>
             </div>
             <!-- /.box-body -->
@@ -116,3 +123,18 @@
     </div>
     <!-- /.col -->
 </div>
+@section Scripts{
+    <script src="~/assets/vendor_components/print.min.js"></script>
+    <script>
+        $("#print").on("click", function(){
+            $.get("/documents/document-header", function(data)
+            {
+                data = data.replace("[Content]", $("#blotter").html());
+                printJS({
+                printable: data,
+                type: "raw-html",
+                })
+            })
+        })
+    </script>
+}

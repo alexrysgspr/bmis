@@ -14,8 +14,10 @@ builder
     .AddDbContext<ApplicationDbContext>(
         options =>
         {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"),
-                action => action.MigrationsAssembly("Bmis.EntityFramework"));
+            options.UseInMemoryDatabase("bmis");
+
+            //options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"),
+            //    action => action.MigrationsAssembly("Bmis.EntityFramework"));
         })
     .AddIdentity<ApplicationUser, IdentityRole>()
     .AddRoles<IdentityRole>()
@@ -24,7 +26,7 @@ builder
 builder.Services.ConfigureApplicationCookie(options =>
     {
         options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-        options.Cookie.Name = "YourAppCookieName";
+        options.Cookie.Name = "auth.bmis";
         options.Cookie.HttpOnly = true;
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
         options.LoginPath = "/Account/Login";

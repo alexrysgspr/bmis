@@ -31,7 +31,7 @@ namespace Bmis.Web.Controllers.Households
                 .Select(x => new HouseHoldViewModel
                 {
                     AddressId = x.Id,
-                    Address = x.AddressLine,
+                    Address = x.StreetAddress,
                     Purok = x.Purok,
                     TotalFemale = x.Residents.Count(y => y.Gender == Gender.Female),
                     TotalMale = x.Residents.Count(y => y.Gender == Gender.Male),
@@ -61,7 +61,7 @@ namespace Bmis.Web.Controllers.Households
             var model = new HouseHoldViewModel
             {
                 AddressId = household.Id,
-                Address = household.AddressLine,
+                Address = household.StreetAddress,
                 Purok = household.Purok,
                 TotalFemale = household.Residents.Count(y => y.Gender == Gender.Female),
                 TotalMale = household.Residents.Count(y => y.Gender == Gender.Male),
@@ -80,8 +80,8 @@ namespace Bmis.Web.Controllers.Households
             var household = await _context
                 .Addresses
                 .AsNoTracking()
-                .Where(x => x.AddressLine.StartsWith(query, StringComparison.InvariantCultureIgnoreCase))
-                .Select(x => new { x.Id, x.AddressLine, x.Purok })
+                .Where(x => x.StreetAddress.StartsWith(query, StringComparison.InvariantCultureIgnoreCase))
+                .Select(x => new { x.Id, x.StreetAddress, x.Purok })
                 .ToListAsync();
 
             return Json(household);

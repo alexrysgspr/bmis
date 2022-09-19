@@ -61,9 +61,15 @@
 </div>
 
 @section Scripts{
+    <script src="~/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#residents').DataTable({
+                "dom": 'Bfrtip',
+                "buttons": [
+                    'print'
+                ],
                 "searching": true,
                 "paging":   true,
                 "info": true

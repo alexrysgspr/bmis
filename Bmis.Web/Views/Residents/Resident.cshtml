@@ -10,7 +10,7 @@
         <!-- Profile Image -->
         <div class="box bg-black">
             <div class="box-body box-profile">
-                <img class="profile-user-img rounded img-fluid mx-auto d-block" src="~/images/5.jpg" alt="User profile picture">
+                <img class="profile-user-img rounded img-fluid mx-auto d-block" src="~/uploads/@Model.ImageUrl" alt="User profile picture">
 
                 <h2 class="profile-username text-center mb-0">
                 </h2>
@@ -42,7 +42,7 @@
                         <dd>@Model.Email</dd>
 
                         <dt>Address:</dt>
-                        <dd>@Model.AddressLine</dd>
+                        <dd>@Model.StreetAddress</dd>
 
                         <dt>Purok:</dt>
                         <dd>@Model.Purok</dd>
@@ -145,8 +145,8 @@
                                         class="col-sm-10 form-control"
                                         data-placeholder="Search address"
                                         style="width: 100%"
-                                        asp-for="AddressLine">
-                                        <option value="@Model.AddressId">@Model.AddressLine</option>
+                                        asp-for="StreetAddress">
+                                        <option value="@Model.AddressId">@Model.StreetAddress</option>
                                     </select>
                                 </div>
                             </div>

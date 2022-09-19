@@ -72,7 +72,6 @@ public class SetupController : Controller
         var user = new ApplicationUser
         {
             UserName = model.AdminUsername,
-            BarangayId = barangay.Id
         };
 
         var userResult = await _userManager.CreateAsync(user, model.AdminPassword);
@@ -88,13 +87,6 @@ public class SetupController : Controller
         }
 
         await _userManager.AddClaimAsync(user, new Claim(Claims.Barangay, barangay.Id.ToString()));
-
-        var roleExists = await _roleManager.RoleExistsAsync(Roles.Admin);
-
-        if (!roleExists)
-        {
-            await _roleManager.CreateAsync(new IdentityRole(Roles.Admin));
-        }
 
         await _userManager.AddToRoleAsync(user, Roles.Admin);
 

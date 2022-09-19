@@ -9,14 +9,15 @@ namespace Bmis.Web.Controllers.Residents
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Extension { get; set; }
-        public IFormFile Photo { get; set; }
+        public IFormFile Image { get; set; }
+        public string ImageUrl { get; set; }
         public DateTime Birthdate { get; set; }
         public CivilStatus CivilStatus { get; set; }
         public VoterStatus VoterStatus { get; set; }
         public Gender Gender { get; set; }
         public string ContactNo { get; set; }
         public string Email { get; set; }
-        public string AddressLine { get; set; }
+        public string StreetAddress { get; set; }
         public int? AddressId { get; set; }
         public string Purok { get; set; }
         public bool IsPwd { get; set; }
@@ -51,7 +52,7 @@ namespace Bmis.Web.Controllers.Residents
             return new ResidentViewModel
             {
                 Id = entity.Id,
-                AddressLine = $"{entity.Address.AddressLine}",
+                StreetAddress = $"{entity.Address.StreetAddress}",
                 Purok = entity.Address.Purok,
                 Birthdate = entity.Birthdate,
                 CivilStatus = entity.CivilStatus,
@@ -65,7 +66,8 @@ namespace Bmis.Web.Controllers.Residents
                 VoterStatus = entity.VoterStatus,
                 IsPwd = entity.IsPwd,
                 Disability = entity.Disability,
-                AddressId = entity.AddressId
+                AddressId = entity.AddressId,
+                ImageUrl = entity.ImageUrl
             };
         }
 
@@ -84,7 +86,8 @@ namespace Bmis.Web.Controllers.Residents
                 MiddleName = model.MiddleName,
                 VoterStatus = model.VoterStatus,
                 IsPwd = model.IsPwd,
-                Disability = model.Disability
+                Disability = model.Disability,
+                ImageUrl = model.ImageUrl
             };
 
             if (model.AddressId > 0)
@@ -95,7 +98,7 @@ namespace Bmis.Web.Controllers.Residents
             {
                 resident.Address = new Address
                 {
-                    AddressLine = model.AddressLine,
+                    StreetAddress = model.StreetAddress,
                     Purok = model.Purok
                 };
             }
@@ -126,7 +129,7 @@ namespace Bmis.Web.Controllers.Residents
             {
                 entity.Address = new Address
                 {
-                    AddressLine = model.AddressLine,
+                    StreetAddress = model.StreetAddress,
                     Purok = model.Purok
                 };
             }

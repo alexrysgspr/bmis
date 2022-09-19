@@ -16,7 +16,7 @@ public class AddressEntityConfiguration : IEntityTypeConfiguration<Address>
         builder.Property(x => x.Purok)
             .HasMaxLength(32);
 
-        builder.Property(x => x.AddressLine)
+        builder.Property(x => x.StreetAddress)
             .HasMaxLength(256);
 
         builder

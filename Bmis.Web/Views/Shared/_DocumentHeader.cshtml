@@ -1,0 +1,105 @@
+﻿@model Barangay
+
+
+<style>
+    /* Styles go here */
+
+    .page-header, .page-header-space {
+        height: 110px;
+    }
+
+    .page-footer, .page-footer-space {
+        height: 50px;
+    }
+
+    .page-footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid black; /* for demo */
+        background: yellow; /* for demo */
+    }
+
+    .page-header {
+        position: fixed;
+        top: 0mm;
+        width: 100%;
+        border-bottom: 1px solid black; /* for demo */
+        background: yellow; /* for demo */
+    }
+
+    .page {
+        page-break-after: always;
+    }
+
+    @@page {
+        size: auto; /* auto is the initial value */
+        margin-top: 10px;
+        margin-bottom: 0; /* this affects the margin in the printer settings */
+    }
+
+    @@media print {
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        button {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+        }
+    }
+</style>
+
+<div class="page-header" style="text-align: center">
+    <img src="~/uploads/@Model.Logo" height="50px;" />
+    <br />
+    @Model.Name
+    <br />
+    @Model.Municipality, @Model.Province
+    <br />
+    @Model.ContactNo
+</div>
+
+<div class="page-footer">
+    <br />
+</div>
+
+<table>
+
+    <thead>
+        <tr>
+            <td>
+                <!--place holder for the fixed-position header-->
+                <div class="page-header-space"></div>
+            </td>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                <!--*** CONTENT GOES HERE ***-->
+                <div class="page">
+                    [Content]
+                </div>
+            </td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td>
+                <!--place holder for the fixed-position footer-->
+                <div class="page-footer-space"></div>
+            </td>
+        </tr>
+    </tfoot>
+
+</table>

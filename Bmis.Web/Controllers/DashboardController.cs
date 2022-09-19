@@ -52,24 +52,24 @@ public class DashboardController : Controller
             .AsNoTracking()
             .CountAsync(x => x.IsPwd);
 
-        //var purokPopulation = await _context
-        //    .Addresses
-        //    .Include(x => x.Residents)
-        //    .Select(x => new
-        //    {
-        //        x.Purok,
-        //        Count = x.Residents.Count()
-        //    })
-        //    .ToListAsync();
+        var purokPopulation = await _context
+            .Addresses
+            .Include(x => x.Residents)
+            .Select(x => new
+            {
+                x.Purok,
+                Count = x.Residents.Count()
+            })
+            .ToListAsync();
 
-        //model.PurokPopulations = purokPopulation
-        //    .GroupBy(x => x.Purok)
-        //    .Select(x => new PurokPopulation
-        //    {
-        //        Purok = x.Key,
-        //        Total = x.Sum(y => y.Count)
-        //    })
-        //    .ToList();
+        model.PurokPopulations = purokPopulation
+            .GroupBy(x => x.Purok)
+            .Select(x => new PurokPopulation
+            {
+                Purok = x.Key,
+                Total = x.Sum(y => y.Count)
+            })
+            .ToList();
 
         model.PopulationClassifications = await _context
             .Residents
