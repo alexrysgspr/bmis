@@ -2,6 +2,16 @@
 
 @{
     ViewData["title"] = Model.Address;
+
+    ViewData["BreadCrumbLinks"] = new List<KeyValuePair<string, string>>
+    {
+        new(
+            "Dashboard",
+            Url.Action("Dashboard", "Dashboard")),
+        new(
+            "HouseHolds",
+            Url.Action("HouseHolds", "Households"))
+    };
 }
 
 <div class="row">

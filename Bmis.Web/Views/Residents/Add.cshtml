@@ -1,5 +1,15 @@
 ﻿@{
     ViewData["title"] = "Add new resident";
+
+    ViewData["BreadCrumbLinks"] = new List<KeyValuePair<string, string>>
+    {
+        new(
+            "Dashboard",
+            Url.Action("Dashboard", "Dashboard")),
+        new(
+            "Residents",
+            Url.Action("Residents", "Residents"))
+    };
 }
 
 @using Microsoft.AspNetCore.Mvc.TagHelpers

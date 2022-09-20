@@ -48,6 +48,14 @@ public class AccountController : Controller
 
         return View(model);
     }
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+
+        return Redirect(nameof(Login));
+    }
 }
 
 public class InputModel

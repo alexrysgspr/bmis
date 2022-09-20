@@ -1,8 +1,14 @@
 ﻿@{
     ViewData["title"] = "Blotters";
+
+    ViewData["BreadCrumbLinks"] = new List<KeyValuePair<string, string>>
+    {
+        new(
+            "Dashboard",
+            Url.Action("Dashboard", "Dashboard"))
+    };
 }
 
-@using Bmis.Web.Extensions
 @model List<Bmis.Web.Controllers.Blotters.BlotterViewModel>
 @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
 

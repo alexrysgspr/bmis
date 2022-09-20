@@ -1,5 +1,12 @@
 ﻿@{
     ViewData["title"] = "Households";
+
+    ViewData["BreadCrumbLinks"] = new List<KeyValuePair<string, string>>
+    {
+        new(
+            "Dashboard",
+            Url.Action("Dashboard", "Dashboard"))
+    };
 }
 
 @model List<Bmis.Web.Controllers.Households.HouseHoldViewModel>

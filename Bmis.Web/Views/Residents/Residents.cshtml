@@ -1,5 +1,12 @@
 ﻿@{
     ViewData["title"] = "Residents";
+
+    ViewData["BreadCrumbLinks"] = new List<KeyValuePair<string, string>>
+    {
+        new(
+            "Dashboard",
+            Url.Action("Dashboard", "Dashboard"))
+    };
 }
 
 @using Bmis.Web.Extensions

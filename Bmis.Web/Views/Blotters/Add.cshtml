@@ -1,5 +1,15 @@
 ﻿@{
     ViewData["title"] = "Add new blotter";
+
+    ViewData["BreadCrumbLinks"] = new List<KeyValuePair<string, string>>
+    {
+        new(
+            "Dashboard",
+            Url.Action("Dashboard", "Dashboard")),
+        new(
+            "Blotters",
+            Url.Action("Blotters", "Blotters"))
+    };
 }
 
 @using Microsoft.AspNetCore.Mvc.TagHelpers
