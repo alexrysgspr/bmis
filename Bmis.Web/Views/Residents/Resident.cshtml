@@ -213,7 +213,7 @@
     <script src="~/assets/vendor_components/select2/dist/js/select2.full.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#AddressLine").select2({
+            $("#StreetAddress").select2({
                 tags: true,
                 allowClear: true,
                 minimumInputLength: 3,
@@ -273,7 +273,7 @@
                 return $state;
             };
 
-            $('#AddressLine').on('select2:select', function(e) {
+            $('#StreetAddress').on('select2:select', function(e) {
                 var data = e.params.data;
                 if (data.purok) {
                     $("#Purok").val(data.purok);
@@ -286,7 +286,7 @@
                 }
             });
 
-            $("#AddressLine").on("select2:unselecting",
+            $("#StreetAddress").on("select2:unselecting",
                 function() {
                     $("#Purok").val("");
                     $("#Purok").prop("disabled", false);

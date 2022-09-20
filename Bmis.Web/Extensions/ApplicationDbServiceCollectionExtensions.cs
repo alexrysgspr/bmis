@@ -223,7 +223,8 @@ public static class ApplicationDbServiceCollectionExtensions
         var barangay = new Barangay
         {
             Name = "Barangay Centro",
-            Municipality = "Camasi",
+            Municipality = "Penablanca",
+            City = "Camasi",
             Province = "Cagayan Valley",
             ContactNo = "091235456",
             Officials = JsonSerializer.Serialize(officials),

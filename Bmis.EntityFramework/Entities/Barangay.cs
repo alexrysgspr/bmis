@@ -8,6 +8,7 @@ public class Barangay
     public string Officials { get; set; }
     public string Host { get; set; }
     public string ContactNo { get; set; }
+    public string City { get; set; }
     public string Municipality { get; set; }
     public string Province { get; set; }
     public string ZipCode { get; set; }

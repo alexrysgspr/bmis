@@ -31,15 +31,19 @@ namespace Bmis.Web.Controllers.Documents
         }
 
         [HttpGet("certificate-of-indigency")]
-        public IActionResult CertificateOfIndigency()
+        public async Task<IActionResult> CertificateOfIndigency()
         {
-            return View();
+            var barangay = await _dbContext.Barangays.FirstAsync(x => x.Id == User.GetBarangayId());
+
+            return View(barangay);
         }
 
         [HttpGet("barangay-clearance")]
-        public IActionResult BarangayClearance()
+        public async Task<IActionResult> BarangayClearance()
         {
-            return View();
+            var barangay = await _dbContext.Barangays.FirstAsync(x => x.Id == User.GetBarangayId());
+
+            return View(barangay);
         }
 
         [HttpGet("document-header")]

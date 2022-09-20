@@ -1,10 +1,116 @@
-﻿<button onclick="Print()">print</button>
+﻿@{
+    ViewData["title"] = "Barangay Clearance";
+
+    ViewData["BreadCrumbLinks"] = new List<KeyValuePair<string, string>>
+    {
+        new(
+            "Dashboard",
+            Url.Action("Dashboard", "Dashboard")),
+        new(
+            "Documents",
+            Url.Action("BarangayClearance", "Documents"))
+    };
+}
+@model Barangay
+<style>
+    h5::first-letter {
+        margin-left: 50px;
+    }
+</style>
+<div class="box">
+    <div class="box-body">
+        <label>Document inputs:</label>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="text" id="name" class="form-control" placeholder="Name">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="date" class="form-control" placeholder="Date">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-body" style="padding: 150px 150px 150px 150px" id="document">
+        <style>
+            p::first-letter {
+                margin-left: 50px;
+            }
+
+        </style>
+        <div class="page-header" style="text-align: center">
+            <img src="~/uploads/@Model.Logo" height="50px;" />
+            <br />
+            @Model.Name
+            <br />
+            @Model.City, @Model.Municipality, @Model.Province
+            <br />
+            @Model.ContactNo
+        </div>
+        <h3 class="text-center" style="text-align: center">OFFICE OF THE BARANGAY CAPTAIN</h3>
+        <br/>
+        <h1 class="text-center" style="text-align: center">BARANGAY CLEARANCE</h1>
+        <br/>
+        <h5>
+            TO WHOM IT MAY CONCERN:
+        </h5>
+        <p class="text-wrap text-break">
+            This is to certify that <span id="name-label" class="text-bold text-underline" style="text-decoration: underline; font-weight: bold">___________________________________</span>, is a permanent resident of <span class="text-bold" style="text-decoration: underline; font-weight: bold"></span> and that he/she is known to be of good moral character.
+        </p>
+        <p>
+            This certification/clearance is hereby issued to the above-named person for whatever legal purpose it may serve him/her best.
+        </p>
+        <p class="text-wrap text-break">
+            Given this <span id="date-label" style="text-underline: black; font-weight: bold">__________</span>.
+        </p>
+    </div>
+
+    <div class="box-body bg-lightest bt-1">
+        <div class="flexbox align-items-center">
+            <button id="print" class="btn btn-info">Print</button>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script src="~/assets/vendor_components/print.min.js"></script>
     <script>
-        function Print(){
+        $("#print").on("click", function(){
+            $.get("/documents/document-header", function(data)
+            {
+                data = data.replace("[Content]", $("#document").html());
+                printJS({
+                printable: data,
+                type: "raw-html",
+                })
+            })
+        });
+        
+        $(document).on("keyup", "#name", function(){
+            var input = $(this).val();
+            if(input == "")
+            {
+                $("#name-label").text("___________________________________");
+            }
+            else
+            {
+                $("#name-label").text(input)
+            }
             
-        }
+        });
+        
+        $(document).on("keyup", "#date", function(){
+            var input = $(this).val();
+            
+            if(input == "")
+            {
+                $("#date-label").text("__________");
+            }
+            else
+            {
+                $("#date-label").text(input)
+            }
+        })
     </script>
 }
