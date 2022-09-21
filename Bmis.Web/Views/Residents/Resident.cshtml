@@ -19,7 +19,7 @@
         <!-- Profile Image -->
         <div class="box bg-black">
             <div class="box-body box-profile">
-                <img class="profile-user-img rounded img-fluid mx-auto d-block" src="~/uploads/@Model.ImageUrl" alt="User profile picture">
+                <img class="profile-user-img rounded img-fluid mx-auto d-block" src="~/uploads/@Model.ImageUrl" alt="~/uploads/avatar.jpg">
 
                 <h2 class="profile-username text-center mb-0">
                 </h2>
@@ -229,7 +229,7 @@
                             function(obj) {
                                 return {
                                     id: obj.id,
-                                    text: obj.addressLine,
+                                    text: obj.streetAddress,
                                     purok: obj.purok
                                 };
                             });

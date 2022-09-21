@@ -2,6 +2,7 @@ using Bmis.EntityFramework.DesignTime;
 using Bmis.EntityFramework.Entities;
 using Bmis.EntityFramework.Extensions;
 using Bmis.Web.Extensions;
+using Bmis.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -36,6 +37,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder
     .Services
+    .AddSingleton<IFileServices, FileServices>()
     .AddAppPersistence(builder.Configuration)
     .AddRouting(options => options.LowercaseUrls = true)
     .AddControllersWithViews(x => x.Filters.Add(new AuthorizeFilter()))

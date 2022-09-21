@@ -3,6 +3,7 @@ using System.Text.Json;
 using Bmis.EntityFramework.DesignTime;
 using Bmis.EntityFramework.Entities;
 using Bmis.Web.Models;
+using Bmis.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,24 +15,22 @@ namespace Bmis.Web.Controllers.Setup;
 [Route("[controller]")]
 public class SetupController : Controller
 {
-    private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IFileServices _fileServices;
 
     public SetupController(
-        IWebHostEnvironment webHostEnvironment,
+        
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        RoleManager<IdentityRole> roleManager,
-        ApplicationDbContext context)
+        ApplicationDbContext context,
+        IFileServices fileServices)
     {
-        _roleManager = roleManager;
+        _fileServices = fileServices;
         _signInManager = signInManager;
         _userManager = userManager;
         _context = context;
-        _webHostEnvironment = webHostEnvironment;
     }
 
     [HttpGet]
@@ -47,8 +46,6 @@ public class SetupController : Controller
         {
             return View(model);
         }
-
-        var path = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
 
         var officials = model.Officials
             .Select(x => new Official
@@ -90,21 +87,14 @@ public class SetupController : Controller
 
         await _userManager.AddToRoleAsync(user, Roles.Admin);
 
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
-
         foreach (var official in from official in model.Officials let imagePath = officials[model.Officials.IndexOf(official)].Image where !string.IsNullOrEmpty(imagePath) select official)
         {
-            await using var officialStream = new FileStream(Path.Combine(path, officials[model.Officials.IndexOf(official)].Image), FileMode.Create);
-            await official.Image.CopyToAsync(officialStream);
+            await _fileServices.Add(official.Image.OpenReadStream(),
+                officials[model.Officials.IndexOf(official)].Image);
         }
 
-        var logoPath = Path.Combine(path, $"{Guid.NewGuid()}{Path.GetExtension(model.Logo.FileName)}");
-
-        await using var stream = new FileStream(logoPath, FileMode.Create);
-        await model.Logo.CopyToAsync(stream);
+        await _fileServices.Add(model.Logo.OpenReadStream(),
+            barangay.Logo);
 
         await _signInManager.SignInAsync(user, true);
 
