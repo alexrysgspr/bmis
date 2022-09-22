@@ -30,24 +30,28 @@
                                 <label class="col-sm-2 col-form-label">First Name</label>
                                 <div class="col-sm-10">
                                     <input class="form-control input-sm" type="text" asp-for="FirstName">
+                                    <span asp-validation-for="FirstName" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Middle Name</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" type="text" asp-for="MiddleName">
+                                    <span asp-validation-for="MiddleName" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Last Name</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" type="text" asp-for="LastName">
+                                    <span asp-validation-for="LastName" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Extension</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" asp-for="Extension">
+                                    <span asp-validation-for="Extension" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -59,12 +63,14 @@
                                             <option value="@gender">@gender</option>
                                         }
                                     </select>
+                                    <span asp-validation-for="Gender" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Birthdate</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" type="date" asp-for="Birthdate">
+                                    <span asp-validation-for="Birthdate" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -76,18 +82,21 @@
                                             <option value="@status">@status</option>
                                         }
                                     </select>
+                                    <span asp-validation-for="CivilStatus" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Contact No.</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" asp-for="ContactNo">
+                                    <span asp-validation-for="ContactNo" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Email Address</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" asp-for="Email">
+                                    <span asp-validation-for="Email" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -96,12 +105,14 @@
                                     <input type="hidden" class="form-control" asp-for="AddressId">
                                     <select class="col-sm-10 form-control" data-placeholder="Search address" style="width: 100%" asp-for="StreetAddress">
                                     </select>
+                                    <span asp-validation-for="StreetAddress" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Purok</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" asp-for="Purok">
+                                    <span asp-validation-for="Purok" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -113,6 +124,7 @@
                                             <option value="@status">@status</option>
                                         }
                                     </select>
+                                    <span asp-validation-for="VoterStatus" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -125,12 +137,13 @@
                                 <label class="col-sm-2 col-form-label">Disability</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" asp-for="Disability">
+                                    <span asp-validation-for="Disability" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label asp-for="Image" class="form-label col-sm-2">Photo</label>
                                 <div class="input-group col-sm-10">
-                                    <input accept=".jpg,.png" class="form-control" asp-for="Image" type="file" onchange="loadFile(event)">
+                                    
                                     <div class="input-group-append">
                                         <button id="camera-btn" type="button" class="btn btn-danger" data-target="#camera-dialog"><i class="fa fa-camera"></i></button>
                                     </div>
@@ -190,17 +203,12 @@
 
 
 @section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
     <script src="~/assets/vendor_components/select2/dist/js/select2.full.min.js"></script>
     <script language="javascript">
-        var loadFile = function(event) {
-                var output = document.getElementById('output');
-                output.src = URL.createObjectURL(event.target.files[0]);
-                output.onload = function() {
-                  URL.revokeObjectURL(output.src) // free memory
-                }
-              };
+    
         $(document).ready(function() {
-            
             function setupCamera(){
                 Webcam.set({
                      width: 320,
@@ -211,6 +219,51 @@
 
                  Webcam.attach('#camera');
             }
+              
+            function dataURLtoFile(dataurl, filename) {
+                var arr = dataurl.split(','),
+                    mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), 
+                    n = bstr.length, 
+                    u8arr = new Uint8Array(n);
+                    
+                while(n--){
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                
+                return new File([u8arr], filename, {type:mime});
+            }
+            
+            $("form").on("submit", function(e){
+                e.preventDefault();
+                
+                if($(this).valid()){
+                    var formData = new FormData(this);
+                    var imageUrl = $("#preview").attr("src")
+
+                    if(imageUrl)
+                    {
+                        console.log(imageUrl)
+                        var file = dataURLtoFile(imageUrl, "test.jpg");
+                        formData.append('Image', file); 
+                    }
+                    
+                    $.ajax({
+                        url: $(this).attr("action"),
+                        data: formData,
+                        type: 'POST',
+                        contentType: false, 
+                        processData: false, 
+                        success: function(){
+                            window.location = "/residents"
+                        },
+                        error: function(){
+                        }
+                    });
+
+                    return true;
+                }
+            })
             
             function toggleElements(){
                $("#result").toggleClass("d-none")
@@ -240,7 +293,6 @@
             
             $('#camera-dialog').on('hidden.bs.modal', function (e) {
 			    Webcam.reset();
-                console.log($("#result-img").attr("src"))
                 if($("#result-img").attr("src") != ""){
                     $("#preview").attr("src", $("#result-img").attr("src"))
                 }
@@ -326,6 +378,7 @@
                     $("#AddressId").val(0);
                 });
         })
+    
     
     
     

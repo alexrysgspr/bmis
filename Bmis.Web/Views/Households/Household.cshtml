@@ -62,7 +62,7 @@
             <a asp-action="Resident" asp-controller="Residents" asp-route-id="@resident.Id">
                 <div class="box box-body mh-100 col-auto flex-shrink-1 m-5" style="width: 18rem;">
                     <div class="p-2">
-                        <img class="rounded my-10" src="~/uploads/@resident.ImageUrl" alt="~/uploads/avatar.jpg">
+                        <img class="rounded my-10" src="~/uploads/@resident.ImageUrl" onerror="this.src='/uploads/avatar.jpg';">
                         <h6 class="m-0 text-truncate">
                             @resident.GetFullName()
                         </h6>

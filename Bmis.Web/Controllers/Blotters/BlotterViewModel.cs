@@ -1,14 +1,20 @@
 ﻿using Bmis.EntityFramework.Entities;
+using Microsoft.Build.Framework;
 
 namespace Bmis.Web.Controllers.Blotters
 {
     public class BlotterViewModel
     {
         public int Id { get; set; }
+        [Required]
         public string Complainant { get; set; }
+        [Required]
         public string Respondent { get; set; }
+        [Required]
         public string Details { get; set; }
+        [Required]
         public string Location { get; set; }
+        [Required]
         public string BlotterType { get; set; }
         public DateTime DateTime { get; set; }
         public BlotterStatus Status { get; set; }

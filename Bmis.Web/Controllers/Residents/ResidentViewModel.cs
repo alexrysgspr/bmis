@@ -1,24 +1,33 @@
-﻿using Bmis.EntityFramework.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using Bmis.EntityFramework.Entities;
 
 namespace Bmis.Web.Controllers.Residents
 {
     public class ResidentViewModel
     {
         public int Id { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string MiddleName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public string Extension { get; set; }
         public IFormFile Image { get; set; }
         public string ImageUrl { get; set; }
         public DateTime Birthdate { get; set; }
+        [Required]
         public CivilStatus CivilStatus { get; set; }
+        [Required]
         public VoterStatus VoterStatus { get; set; }
+        [Required]
         public Gender Gender { get; set; }
         public string ContactNo { get; set; }
         public string Email { get; set; }
+        [Required]
         public string StreetAddress { get; set; }
         public int? AddressId { get; set; }
+        [Required]
         public string Purok { get; set; }
         public bool IsPwd { get; set; }
         public string Disability { get; set; }
@@ -71,7 +80,7 @@ namespace Bmis.Web.Controllers.Residents
             };
         }
 
-        public static Resident ToResident(this ResidentViewModel model)
+        public static Resident ToResident(this ResidentViewModel model, string fileName = null)
         {
             var resident = new Resident
             {
@@ -87,7 +96,7 @@ namespace Bmis.Web.Controllers.Residents
                 VoterStatus = model.VoterStatus,
                 IsPwd = model.IsPwd,
                 Disability = model.Disability,
-                ImageUrl = model.ImageUrl
+                ImageUrl = fileName
             };
 
             if (model.AddressId > 0)

@@ -1,4 +1,6 @@
-﻿using Bmis.EntityFramework.DesignTime;
+﻿using System.Net;
+using Bmis.EntityFramework.DesignTime;
+using Bmis.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,12 +10,16 @@ namespace Bmis.Web.Controllers.Residents
     public class ResidentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IFileServices _fileServices;
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public ResidentsController(ApplicationDbContext context)
+        public ResidentsController(
+            ApplicationDbContext context,
+            IFileServices fileServices)
         {
+            _fileServices = fileServices;
             _context = context;
         }
 
@@ -76,16 +82,40 @@ namespace Bmis.Web.Controllers.Residents
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Add(ResidentViewModel model)
+        public async Task<ActionResult> Add(ResidentViewModel model)
         {
-            var resident = model.ToResident();
+            if (!ModelState.IsValid)
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                var errors =  ModelState.ToDictionary(kvp => kvp.Key,
+                        kvp => kvp.Value.Errors
+                            .Select(e => e.ErrorMessage).ToArray())
+                    .Where(m => m.Value.Any());
+
+                return Json(errors.ToDictionary(x => x.Key, x => x.Value.First()));
+            }
+
+            var fileName = string.Empty;
+
+            if (model.Image != null)
+            {
+                fileName = $"{Guid.NewGuid()}.jpg";
+                await _fileServices.Add(model.Image.OpenReadStream(), fileName);
+            }
+
+            var resident = model.ToResident(fileName);
 
             _context.Add(resident);
             await _context.SaveChangesAsync();
 
+            if (model.Image != null)
+            {
+                await _fileServices.Add(model.Image.OpenReadStream(), $"{Guid.NewGuid()}.jpg");
+            }
+
             StatusMessage = $"'{model.GetFullName()}' added successfully.";
 
-            return RedirectToAction(nameof(Residents));
+            return Created(nameof(Resident), new { id = resident.Id });
         }
     }
 }
