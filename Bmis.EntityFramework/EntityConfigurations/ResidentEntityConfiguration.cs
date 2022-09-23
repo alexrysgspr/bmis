@@ -58,6 +58,8 @@ public class ResidentEntityConfiguration : IEntityTypeConfiguration<Resident>
             .HasForeignKey(x => x.BarangayId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        builder.HasQueryFilter(b => !b.IsDeleted);
+
     }
 
     public class PropertyLimits

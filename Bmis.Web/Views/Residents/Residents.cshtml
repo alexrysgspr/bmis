@@ -36,6 +36,7 @@
                             <th>Voter Status</th>
                             <th>Is PWD?</th>
                             <th>Contact No.</th>
+                            <th></th>
                         </tr>
                         </thead>
                         
@@ -58,6 +59,11 @@
                                 <td>@resident.VoterStatus.ToString()</td>
                                 <td>@resident.IsPwd.ToYesOrNo()</td>
                                 <td>@resident.ContactNo</td>
+                                <td>
+                                    <form asp-action="Delete" asp-controller="Residents" asp-route-id="@resident.Id">
+                                        <button class="btn btn-danger btn-xs">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         }
                     </table>

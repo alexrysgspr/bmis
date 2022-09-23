@@ -55,22 +55,75 @@
 </div>
 
 <div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="box box-solid bg-black">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update Household</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form asp-action="Update" asp-controller="Households" method="post" asp-route-id="@Model.AddressId">
+                    <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Street Address</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" asp-for="Address">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Purok</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" asp-for="Purok">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                </form>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+<div class="row">
     <div class="col-12 d-flex flex-wrap justify-content-center">
         @for (var index = 0; index < Model.Residents.Count; index++)
         {
             var resident = Model.Residents[index];
-            <a asp-action="Resident" asp-controller="Residents" asp-route-id="@resident.Id">
-                <div class="box box-body mh-100 col-auto flex-shrink-1 m-5" style="width: 18rem;">
-                    <div class="p-2">
-                        <img class="rounded my-10" src="~/uploads/@resident.ImageUrl" onerror="this.src='/uploads/avatar.jpg';">
-                        <h6 class="m-0 text-truncate">
-                            @resident.GetFullName()
-                        </h6>
-                        <div>Gender: @resident.Gender</div>
-                        <div>Voter Status: @resident.VoterStatus</div>
-                    </div>
-                </div>
-            </a>
+                        <a asp-action="Resident" asp-controller="Residents" asp-route-id="@resident.Id">
+
+        <div class="box box-body col-auto flex-shrink-1 m-5" style="width: 18rem;">
+            <div class="p-2">
+                <img class="rounded my-10" src="~/uploads/@resident.ImageUrl" onerror="this.src='/uploads/avatar.jpg';">
+                <h6 class="m-0 text-truncate">
+                    @resident.GetFullName()
+                </h6>
+                <span class="badge bg-primary">@resident.Gender</span>
+                <span class="badge bg-primary">@resident.VoterStatus Voter</span>
+            </div>
+        </div>
+                        </a>
+
         }
     </div>
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

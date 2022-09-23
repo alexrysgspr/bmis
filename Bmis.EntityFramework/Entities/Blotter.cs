@@ -1,6 +1,6 @@
 ﻿namespace Bmis.EntityFramework.Entities
 {
-    public class Blotter
+    public class Blotter : ISoftDeletableEntity
     {
         public int Id { get; set; }
         public string Complainant { get; set; }
@@ -12,5 +12,6 @@
         public BlotterStatus Status { get; set; }
         public int BarangayId { get; set; }
         public Barangay Barangay { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Bmis.EntityFramework.Entities
 {
-    public class Resident
+    public class Resident : ISoftDeletableEntity
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -20,6 +20,7 @@
         public string ImageUrl { get; set; }
         public int BarangayId { get; set; }
         public Barangay Barangay { get; set; }
+        public bool IsDeleted { get; set; }
     }
 
 }

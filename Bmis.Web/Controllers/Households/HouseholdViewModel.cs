@@ -1,11 +1,14 @@
-﻿using Bmis.Web.Controllers.Residents;
+﻿using System.ComponentModel.DataAnnotations;
+using Bmis.Web.Controllers.Residents;
 
 namespace Bmis.Web.Controllers.Households
 {
     public class HouseHoldViewModel
     {
         public int AddressId { get; set; }
+        [Required]
         public string Address { get; set; }
+        [Required]
         public string Purok { get; set; }
         public int TotalMembers { get; set; }
         public int TotalMale { get; set; }

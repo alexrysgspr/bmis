@@ -86,5 +86,41 @@ namespace Bmis.Web.Controllers.Households
 
             return Json(household);
         }
+
+        [HttpPost("{id}/[action]")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var entity = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            StatusMessage = $"'{entity.StreetAddress}' deleted successfully.";
+
+            return RedirectToAction(nameof(Households));
+        }
+
+        [HttpPost("{id}/[action]")]
+        public async Task<ActionResult> Update(int id, HouseHoldViewModel model)
+        {
+            var entity = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            entity.Purok = model.Purok;
+            entity.StreetAddress = model.Address;
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+
+            StatusMessage = $"'{entity.StreetAddress}' updated successfully.";
+
+            return RedirectToAction(nameof(Households));
+        }
     }
 }

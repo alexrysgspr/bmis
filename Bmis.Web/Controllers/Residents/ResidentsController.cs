@@ -117,5 +117,22 @@ namespace Bmis.Web.Controllers.Residents
 
             return Created(nameof(Resident), new { id = resident.Id });
         }
+
+        [HttpPost("{id}/[action]")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var entity = await _context.Residents.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            StatusMessage = $"'{entity.FirstName}' deleted successfully.";
+
+            return RedirectToAction(nameof(Residents));
+        }
     }
 }

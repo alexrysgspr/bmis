@@ -34,6 +34,8 @@ public class BlotterEntityConfiguration : IEntityTypeConfiguration<Blotter>
             .WithMany(x => x.Blotters)
             .HasForeignKey(x => x.BarangayId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasQueryFilter(b => !b.IsDeleted);
     }
 
 }

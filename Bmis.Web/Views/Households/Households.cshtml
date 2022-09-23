@@ -33,6 +33,7 @@
                             <th>Total PWD</th>
                             <th>Total Voters</th>
                             <th>Total Members</th>
+                            <th></th>
                         </tr>
                         </thead>
                         
@@ -66,6 +67,11 @@
                                 </td>
                                 <td>
                                     @household.TotalMembers
+                                </td>
+                                <td>
+                                    <form asp-action="Delete" asp-controller="Households" asp-route-id="@household.AddressId">
+                                        <button class="btn btn-danger btn-xs">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         }

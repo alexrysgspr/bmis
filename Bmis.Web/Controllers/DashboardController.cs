@@ -29,7 +29,12 @@ public class DashboardController : Controller
     {
         var barangayId = User.GetBarangayId();
 
-        var barangay = await _context.Barangays.FirstOrDefaultAsync(x => x.Id == barangayId);
+        var barangay = await _context.Barangays.AsNoTracking().FirstOrDefaultAsync(x => x.Id == barangayId);
+
+        if (barangay == default)
+        {
+            return NotFound();
+        }
 
         var model = new DashboardViewModel
         {
@@ -38,9 +43,10 @@ public class DashboardController : Controller
         };
 
         model.TotalResidents = await _context
-            .Residents
+            .Addresses
+            .Include(x => x.Residents)
             .AsNoTracking()
-            .CountAsync();
+            .SumAsync(x => x.Residents.Count);
 
         model.TotalActiveVoters = await _context
             .Residents
@@ -55,6 +61,7 @@ public class DashboardController : Controller
         var purokPopulation = await _context
             .Addresses
             .Include(x => x.Residents)
+            .AsNoTracking()
             .Select(x => new
             {
                 x.Purok,
@@ -73,6 +80,7 @@ public class DashboardController : Controller
 
         model.PopulationClassifications = await _context
             .Residents
+            .AsNoTracking()
             .GroupBy(x => x.Gender)
             .Select(y => new PopulationClassification
             {

@@ -79,5 +79,22 @@ namespace Bmis.Web.Controllers.Blotters
 
             return RedirectToAction(nameof(Blotters));
         }
+
+        [HttpPost("{id}/[action]")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var entity = await _context.Blotters.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            StatusMessage = $"{entity.Complainant}'s blotter record deleted successfully.";
+
+            return RedirectToAction(nameof(Blotters));
+        }
     }
 }

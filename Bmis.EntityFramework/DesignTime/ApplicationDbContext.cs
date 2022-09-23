@@ -34,5 +34,21 @@ namespace Bmis.EntityFramework.DesignTime
             base.OnModelCreating(builder);
 
         }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            var entities = ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted);
+
+            foreach (var entity in entities)
+            {
+                if (entity.Entity is not ISoftDeletableEntity softDeletedEntity) continue;
+                entity.State = EntityState.Modified;
+                    
+                softDeletedEntity.IsDeleted = true;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }
